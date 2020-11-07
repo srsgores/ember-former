@@ -1,1 +1,5 @@
-{{yield}}
+<div class="{{this.className}} {{if this.hasFocus this.focusedClassName}}" ...attributes>
+	<Input @type={{this.type}} @value={{get @model @field}} class={{this.formControlClassName}} id={{this.elementId}} @focus-in={{fn (mut this.hasFocus) true}} @focus-out={{fn (mut this.hasFocus) false}}/>
+	<label for={{this.elementId}}>{{@field}}</label>
+	{{yield}}
+</div>

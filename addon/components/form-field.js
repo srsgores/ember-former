@@ -1,9 +1,12 @@
 import Component from "@glimmer/component";
 import {assert} from "@ember/debug";
+import {guidFor} from "@ember/object/internals";
+import {tracked} from "@glimmer/tracking";
 
 export const CLASS_NAMES = {
 	FOCUSED_STATE: "focused",
-	FORM_CONTROL: "form-control"
+	FORM_CONTROL: "form-control",
+	FORM_FIELD: "form-field"
 };
 
 export const ERROR_MESSAGES = {
@@ -12,6 +15,12 @@ export const ERROR_MESSAGES = {
 };
 
 export default class FormFieldComponent extends Component {
+	elementId = guidFor(this);
+	className = CLASS_NAMES.FORM_FIELD;
+	focusedClassName = CLASS_NAMES.FOCUSED_STATE;
+	formControlClassName = CLASS_NAMES.FORM_CONTROL;
+
+	@tracked hasFocus = false;
 	constructor() {
 		super(...arguments);
 		assert(ERROR_MESSAGES.NO_MODEL_SUPPLIED_MESSAGE, this.args.model);

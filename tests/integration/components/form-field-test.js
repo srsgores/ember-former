@@ -5,7 +5,7 @@ import {hbs} from "ember-cli-htmlbars";
 import {ERROR_MESSAGES, CLASS_NAMES} from "../../../components/form-field";
 
 
-const {FOCUSED_STATE, FORM_CONTROL} = CLASS_NAMES;
+const {FOCUSED_STATE, FORM_FIELD, FORM_CONTROL} = CLASS_NAMES;
 const {NO_MODEL_SUPPLIED_MESSAGE, NO_FIELD_NAME_SUPPLIED_MESSAGE} = ERROR_MESSAGES;
 
 module("Integration | Component | form-field", function(hooks) {
@@ -119,8 +119,8 @@ module("Integration | Component | form-field", function(hooks) {
 
 	test("it toggles the focused class on the parent container when the form control is focused", async function(assert) {
 		await render(hbs`<FormField @model={{this.model}} @field="name"/>`);
-		await focus(FORM_CONTROL);
-		assert.dom(this.element).hasClass(FOCUSED_STATE);
+		await focus(`.${FORM_CONTROL}`);
+		assert.dom(`.${FORM_FIELD}`).hasClass(FOCUSED_STATE);
 	});
 
 	test("it renders block content when supplied", async function(assert) {
@@ -130,7 +130,7 @@ module("Integration | Component | form-field", function(hooks) {
 			<FormField @model={{this.model}} @field="name">
 				{{this.yieldedText}}
 			</FormField>`);
-		assert.dom(this.element).includesText(YIELDED_TEXT, `renders the passed-in text "${YIELDED_TEXT}"`);
+		assert.dom(`.${FORM_FIELD}`).includesText(YIELDED_TEXT, `renders the passed-in text "${YIELDED_TEXT}"`);
 	});
 
 	test("it sets required attribute to true by default", async function(assert) {
