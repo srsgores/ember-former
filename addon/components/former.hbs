@@ -1,1 +1,3 @@
-{{yield}}
+<form action="/{{this.submitPath}}" method={{this.method}} {{on "submit" this.onSubmit}} ...attributes>
+	{{yield}}
+</form>
