@@ -25,7 +25,7 @@ module("Integration | Component | form-field", function(hooks) {
 	test("it throws an error when no @model argument supplied", async function(assert) {
 		assert.expect(1);
 		setupOnerror(function(error) {
-			assert.equal(error.message, `Error: ${NO_MODEL_SUPPLIED_MESSAGE}`);
+			assert.equal(error.message, `Assertion Failed: ${NO_MODEL_SUPPLIED_MESSAGE}`);
 		});
 		await render(hbs`<FormField @field="name"/>`);
 	});
@@ -33,7 +33,7 @@ module("Integration | Component | form-field", function(hooks) {
 	test("it throws an error when no @field argument supplied", async function(assert) {
 		assert.expect(1);
 		setupOnerror(function(error) {
-			assert.equal(error.message, `Error: ${NO_FIELD_NAME_SUPPLIED_MESSAGE}`);
+			assert.equal(error.message, `Assertion Failed: ${NO_FIELD_NAME_SUPPLIED_MESSAGE}`);
 		});
 		await render(hbs`<FormField @model={{this.model}}/>`);
 	});

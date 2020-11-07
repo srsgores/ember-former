@@ -1,5 +1,6 @@
 import Component from "@glimmer/component";
 import {action} from "@ember/object";
+import {assert} from "@ember/debug";
 
 export const CLASS_NAMES = {
 	FORM: "former"
@@ -10,6 +11,11 @@ export const ERROR_MESSAGES = {
 };
 
 export default class FormerComponent extends Component {
+	constructor() {
+		super(...arguments);
+		assert(ERROR_MESSAGES.NO_MODEL_SUPPLIED_MESSAGE, this.args.model);
+	}
+
 	@action onSubmit(submitEvent) {
 		submitEvent.preventDefault();
 		if (this.args.onSubmit) {

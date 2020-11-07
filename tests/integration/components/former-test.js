@@ -53,9 +53,9 @@ module("Integration | Component | former", function(hooks) {
 	test("it throws an error if no @model argument supplied", async function(assert) {
 		assert.expect(1);
 		setupOnerror(function(error) {
-			assert.equal(error.message, `Error: ${NO_MODEL_SUPPLIED_MESSAGE}`);
+			assert.equal(error.message, `Assertion Failed: ${NO_MODEL_SUPPLIED_MESSAGE}`);
 		});
-		await render(`<Former/>`);
+		await render(hbs`<Former/>`);
 	});
 
 	test("it has an action and a method that corresponds to the model supplied", async function(assert) {
