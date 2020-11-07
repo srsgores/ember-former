@@ -1,13 +1,13 @@
 {
   "name": "ember-former",
-  "version": "0.0.0",
-  "description": "The default blueprint for ember-cli addons.",
+  "version": "0.0.1",
+  "description": "Form fields done right, succinctly",
   "keywords": [
     "ember-addon"
   ],
-  "repository": "",
+  "repository": "https://github.com/srsgores/ember-former",
   "license": "MIT",
-  "author": "",
+  "author": "Sean Goresht",
   "directories": {
     "doc": "doc",
     "test": "tests"
