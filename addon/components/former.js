@@ -11,6 +11,16 @@ export const ERROR_MESSAGES = {
 };
 
 export default class FormerComponent extends Component {
+	className = CLASS_NAMES.FORM;
+
+	get method() {
+		return this.args.method || "POST";
+	}
+
+	get submitPath() {
+		return this.args.submitPath || this.args.model._internalModel?.modelName;
+	}
+
 	constructor() {
 		super(...arguments);
 		assert(ERROR_MESSAGES.NO_MODEL_SUPPLIED_MESSAGE, this.args.model);

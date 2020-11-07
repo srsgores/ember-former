@@ -3,14 +3,16 @@ import {setupRenderingTest} from "ember-qunit";
 import {click, render, setupOnerror} from "@ember/test-helpers";
 import {hbs} from "ember-cli-htmlbars";
 import {CLASS_NAMES as FORM_FIELD_CLASSNAMES} from "../../../components/form-field";
-import {ERROR_MESSAGES} from "../../../components/former";
+import {CLASS_NAMES as FORM_CLASS_NAMES, ERROR_MESSAGES} from "../../../components/former";
 
 const {FORM_CONTROL} = FORM_FIELD_CLASSNAMES;
 
 const {NO_MODEL_SUPPLIED_MESSAGE} = ERROR_MESSAGES;
 
 const sampleModel = {
-	modelName: "post"
+	_internalModel: {
+		modelName: "post"
+	}
 };
 
 module("Integration | Component | former", function(hooks) {
@@ -61,15 +63,15 @@ module("Integration | Component | former", function(hooks) {
 	test("it has an action and a method that corresponds to the model supplied", async function(assert) {
 		this.set("model", sampleModel);
 		await render(hbs`<Former @model={{this.model}}/>`);
-		assert.dom(this.element).hasAttribute("action", `/${sampleModel.modelName}`);
-		assert.dom(this.element).hasAttribute("method", "POST", "Sets method to POST by default");
+		assert.dom(`.${FORM_CLASS_NAMES.FORM}`).hasAttribute("action", `/${sampleModel._internalModel.modelName}`);
+		assert.dom(`.${FORM_CLASS_NAMES.FORM}`).hasAttribute("method", "POST", "Sets method to POST by default");
 	});
 
 	test("it passes in additional, specified attributes to the form element", async function(assert) {
 		const CUSTOM_CLASS = "custom";
 		this.set("customClass", CUSTOM_CLASS);
-		await render(hbs`<Former novalidate="novalidate" class={{this.customClass}}/>`);
-		assert.dom(this.element).hasAttribute("novalidate", "novalidate", "has the novalidate attribute");
-		assert.dom(this.element).hasClass(CUSTOM_CLASS, `has the custom class: ${CUSTOM_CLASS}`);
+		await render(hbs`<Former @model={{this.model}} novalidate="novalidate" class={{this.customClass}}/>`);
+		assert.dom(`.${FORM_CLASS_NAMES.FORM}`).hasAttribute("novalidate", "novalidate", "has the novalidate attribute");
+		assert.dom(`.${FORM_CLASS_NAMES.FORM}`).hasClass(CUSTOM_CLASS, `has the custom class: ${CUSTOM_CLASS}`);
 	});
 });
