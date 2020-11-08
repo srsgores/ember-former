@@ -9,6 +9,12 @@ export default function(model, {attributeName, collection}) {
 	else if (attributeName.match(/email/)) {
 		guessedType = "email";
 	}
+	else if (attributeName.match(/phone/i)) {
+		guessedType = "tel";
+	}
+	else if (attributeName.match(/(number|count)/i)) {
+		guessedType = "number";
+	}
 	else if (attributeName.match(/^(is|has|did)/)) {
 		guessedType =  "boolean";
 	}

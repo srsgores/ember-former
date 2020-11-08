@@ -5,6 +5,18 @@ import EmberObject, {computed} from "@ember/object";
 
 module("Unit | Utility | guess-type", function() {
 
+	test("it detects phone by attribute name", function(assert) {
+		assert.equal(guessType({}, {attributeName: "primaryPhone"}), "tel");
+		assert.equal(guessType({}, {attributeName: "primaryPhoneNumber"}), "tel");
+		assert.equal(guessType({}, {attributeName: "currentPhoneNumber"}), "tel");
+	});
+
+	test("it detects number by attribute name", function(assert) {
+		assert.equal(guessType({}, {attributeName: "lotNumber"}), "number");
+		assert.equal(guessType({}, {attributeName: "numberOfParticipants"}), "number");
+		assert.equal(guessType({}, {attributeName: "participantCount"}), "number");
+	});
+
 	test("it detects password by attribute name", function(assert) {
 		assert.equal(guessType({}, {attributeName: "password"}), "password");
 		assert.equal(guessType({}, {attributeName: "passwordConfirmation"}), "password");
