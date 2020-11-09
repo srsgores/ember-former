@@ -2,8 +2,7 @@ import {module, test} from "qunit";
 import {setupRenderingTest} from "ember-qunit";
 import {find, focus, render, settled, setupOnerror} from "@ember/test-helpers";
 import {hbs} from "ember-cli-htmlbars";
-import {ERROR_MESSAGES, CLASS_NAMES} from "../../../components/form-field";
-
+import {CLASS_NAMES, ERROR_MESSAGES} from "../../../components/form-field";
 
 const {FOCUSED_STATE, FORM_FIELD, FORM_CONTROL} = CLASS_NAMES;
 const {NO_MODEL_SUPPLIED_MESSAGE, NO_FIELD_NAME_SUPPLIED_MESSAGE} = ERROR_MESSAGES;
@@ -13,9 +12,9 @@ module("Integration | Component | form-field", function(hooks) {
 
 	hooks.beforeEach(function() {
 		const sampleModel = {
-			modelName: "post",
-			attributes: {
-				name: "name"
+			name: "name",
+			_internalModel: {
+				modelName: "post"
 			}
 		};
 		this.set("model", sampleModel);
@@ -40,34 +39,13 @@ module("Integration | Component | form-field", function(hooks) {
 
 	test("it renders an input element that corresponds to the @model's @field type", async function(assert) {
 		const modelWithEmailAttribute = {
-			modelName: "post",
-			attributes: {
-				email: "xyz@mail.com"
-			}
+			email: "xyz@mail.com"
 		};
 		const modelWithPhoneAttribute = {
-			modelName: "profile",
-			attributes: {
-				primaryPhone: 555555555
-			}
-		};
-		const modelWithDateAttribute = {
-			modelName: "profile",
-			attributes: {
-				lastModifiedDate: new Date()
-			}
+			primaryPhone: "555555555"
 		};
 		const modelWithNumberAttribute = {
-			modelName: "parking-spot",
-			attributes: {
-				lotNumber: 1
-			}
-		};
-		const modelWithBooleanAttribute = {
-			modelName: "profile",
-			attributes: {
-				isDisabled: false
-			}
+			lotNumber: "1"
 		};
 		this.setProperties({
 			model: modelWithEmailAttribute,
@@ -75,38 +53,21 @@ module("Integration | Component | form-field", function(hooks) {
 		});
 		await render(hbs`<FormField @model={{this.model}} @field={{this.field}}/>`);
 		assert.dom(`.${FORM_CONTROL}[type="email"]`).exists({count: 1}, "has an email input when email is contained in the attribute name");
-		assert.dom(`.${FORM_CONTROL}[type="email"]`).hasValue(modelWithEmailAttribute.attributes.email, "pre-populates the email input with the @model's value");
+		assert.dom(`.${FORM_CONTROL}[type="email"]`).hasValue(modelWithEmailAttribute.email, "pre-populates the email input with the @model's value");
 		this.setProperties({
 			model: modelWithPhoneAttribute,
 			field: "primaryPhone"
 		});
 		await settled();
 		assert.dom(`.${FORM_CONTROL}[type="tel"]`).exists({count: 1}, "has a phone input when phone is contained in the attribute name");
-		assert.dom(`.${FORM_CONTROL}[type="tel"]`).hasValue(modelWithPhoneAttribute.attributes.primaryPhone, "pre-populates the tel input with the @model's value");
+		assert.dom(`.${FORM_CONTROL}[type="tel"]`).hasValue(modelWithPhoneAttribute.primaryPhone, "pre-populates the tel input with the @model's value");
 		this.setProperties({
 			model: modelWithNumberAttribute,
 			field: "lotNumber"
 		});
 		await settled();
 		assert.dom(`.${FORM_CONTROL}[type="number"]`).exists({count: 1}, "has a number input when number is contained in the attribute name");
-		assert.dom(`.${FORM_CONTROL}[type="number"]`).hasValue(modelWithNumberAttribute.attributes.lotNumber);
-		this.setProperties({
-			model: modelWithDateAttribute,
-			field: "lastModifiedDate"
-		});
-		await settled();
-		assert.dom(`.${FORM_CONTROL}[type="date"]`).exists({count: 1}, "has a date input when the attribute name contains date");
-		assert.dom(`.${FORM_CONTROL}[type="date"]`).hasValue(modelWithDateAttribute.attributes.lastModifiedDate);
-		this.setProperties({
-			model: modelWithBooleanAttribute,
-			field: "isDisabled"
-		});
-		await settled();
-		assert.dom(`.${FORM_CONTROL}[type="checkbox"]`).exists({count: 1}, "has a checkbox input when the attribute name contains is");
-		assert.dom(`.${FORM_CONTROL}[type="checkbox"]`).isNotChecked("checkbox is unchecked when attribute value is false");
-		this.set("model.attributes.isDisabled", true);
-		await settled();
-		assert.dom(`.${FORM_CONTROL}[type=checkbox]`).isChecked("checkbox is checked when attribute value is true");
+		assert.dom(`.${FORM_CONTROL}[type="number"]`).hasValue(modelWithNumberAttribute.lotNumber);
 	});
 
 	test("it renders a corresponding label with each input", async function(assert) {
@@ -136,5 +97,33 @@ module("Integration | Component | form-field", function(hooks) {
 	test("it sets required attribute to true by default", async function(assert) {
 		await render(hbs`<FormField @model={{this.model}} @field="name"/>`);
 		assert.dom(`.${FORM_CONTROL}:first-child`).isRequired("first input has required attribute");
+	});
+
+	test("it renders an input type checkbox when boolean type", async function(assert) {
+		const modelWithBooleanAttribute = {
+			isDisabled: false
+		};
+		this.setProperties({
+			model: modelWithBooleanAttribute,
+			field: "isDisabled"
+		});
+		await render(hbs`<FormField @model={{this.model}} @field={{this.field}}/>`);
+		assert.dom(`.${FORM_CONTROL}[type="checkbox"]`).exists({count: 1}, "has a checkbox input when the attribute name contains is");
+		assert.dom(`.${FORM_CONTROL}[type="checkbox"]`).isNotChecked("checkbox is unchecked when attribute value is false");
+		this.set("model.isDisabled", true);
+		await settled();
+		assert.dom(`.${FORM_CONTROL}[type=checkbox]`).isChecked("checkbox is checked when attribute value is true");
+	});
+	test("it renders date time when date type", async function(assert) {
+		const modelWithDateAttribute = {
+			lastModifiedDate: "2020-11-08"
+		};
+		this.setProperties({
+			model: modelWithDateAttribute,
+			field: "lastModifiedDate"
+		});
+		await render(hbs`<FormField @model={{this.model}} @field={{this.field}}/>`);
+		assert.dom(`.${FORM_CONTROL}[type="date"]`).exists({count: 1}, "has a date input when the attribute name contains date");
+		assert.dom(`.${FORM_CONTROL}[type="date"]`).hasValue(modelWithDateAttribute.lastModifiedDate);
 	});
 });

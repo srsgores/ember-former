@@ -1,7 +1,9 @@
 import Component from "@glimmer/component";
 import {assert} from "@ember/debug";
 import {guidFor} from "@ember/object/internals";
+import {computed} from "@ember/object";
 import {tracked} from "@glimmer/tracking";
+import guessType from "ember-former/utils/guess-type";
 
 export const CLASS_NAMES = {
 	FOCUSED_STATE: "focused",
@@ -21,6 +23,13 @@ export default class FormFieldComponent extends Component {
 	formControlClassName = CLASS_NAMES.FORM_CONTROL;
 
 	@tracked hasFocus = false;
+
+	@computed.equal("type", "checkbox") isCheckbox;
+
+	get type() {
+		return this.args.type || guessType(this.args.model, {attributeName: this.args.field});
+	}
+
 	constructor() {
 		super(...arguments);
 		assert(ERROR_MESSAGES.NO_MODEL_SUPPLIED_MESSAGE, this.args.model);
