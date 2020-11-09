@@ -152,6 +152,18 @@ module("Integration | Component | form-field", function(hooks) {
 		assert.dom(`.${FORM_CONTROL}[type="url"]`).exists({count: 1}, "has a url input when the attribute name contains url");
 	});
 
+	test("it renders week input when week type", async function(assert) {
+		const modelWithWeekInAttributeName = {
+			weekPublished: "2020-w45"
+		};
+		this.setProperties({
+			model: modelWithWeekInAttributeName,
+			field: "weekPublished"
+		});
+		await render(hbs`<FormField @model={{this.model}} @field={{this.field}}/>`);
+		assert.dom(`.${FORM_CONTROL}[type="week"]`).exists({count: 1}, "has a week input when the attribute name contains week");
+	});
+
 	test("it passes in min, max, and step attributes (number type)", async function(assert) {
 		const modelWithNumberAttribute = {
 			lotNumber: "1"

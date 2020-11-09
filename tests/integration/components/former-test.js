@@ -2,10 +2,7 @@ import {module, test} from "qunit";
 import {setupRenderingTest} from "ember-qunit";
 import {click, fillIn, render, setupOnerror} from "@ember/test-helpers";
 import {hbs} from "ember-cli-htmlbars";
-import {CLASS_NAMES as FORM_FIELD_CLASSNAMES} from "../../../components/form-field";
 import {CLASS_NAMES as FORM_CLASS_NAMES, ERROR_MESSAGES} from "../../../components/former";
-
-const {FORM_CONTROL} = FORM_FIELD_CLASSNAMES;
 
 const {NO_MODEL_SUPPLIED_MESSAGE} = ERROR_MESSAGES;
 

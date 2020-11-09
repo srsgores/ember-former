@@ -49,7 +49,7 @@ This addon has nearly the same features as [`ember-form-builder`](https://github
 | `@type="number"`         | ✔      |  ❌                 |
 | `@type="month"`          | ✔      |  ❌                 |
 | `@type="range"`          | ❌      |  ❌                |
-| `@type="year"`           | ❌      |  ❌                |
+| `@type="week"`           | ✔      |  ❌                |
 | `@type="time"`           | ✔      |  ❌                |
 | `@type="tel"`            | ✔      |  ❌                |
 | `<select>`               | ❌      |  ✔                |

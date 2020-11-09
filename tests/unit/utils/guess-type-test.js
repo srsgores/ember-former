@@ -55,6 +55,12 @@ module("Unit | Utility | guess-type", function() {
 		assert.equal(guessType({}, {attributeName: "colour"}), "color");
 	});
 
+	test("it detects week by attribute name", function(assert) {
+		assert.equal(guessType({}, {attributeName: "selectedWeek"}), "week");
+		assert.equal(guessType({}, {attributeName: "weekCreated"}), "week");
+		assert.equal(guessType({}, {attributeName: "designedWeekChores"}), "week");
+	});
+
 	test("it detects password by attribute name", function(assert) {
 		assert.equal(guessType({}, {attributeName: "password"}), "password");
 		assert.equal(guessType({}, {attributeName: "passwordConfirmation"}), "password");

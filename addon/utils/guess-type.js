@@ -33,6 +33,9 @@ export default function(model, {attributeName, collection}) {
 	else if (attributeName.match(/month/i)) {
 		guessedType = "month";
 	}
+	else if (attributeName.match(/week/i)) {
+		guessedType = "week";
+	}
 	else if (attributeName.match(/(color|colour)/i)) {
 		guessedType = "color";
 	}
