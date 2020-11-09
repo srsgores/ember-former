@@ -25,6 +25,7 @@ export default class FormFieldComponent extends Component {
 	@tracked hasFocus = false;
 
 	@computed.equal("type", "checkbox") isCheckbox;
+	@computed.equal("type", "textarea") isTextarea;
 
 	get type() {
 		return this.args.type || guessType(this.args.model, {attributeName: this.args.field});

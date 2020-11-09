@@ -114,6 +114,7 @@ module("Integration | Component | form-field", function(hooks) {
 		await settled();
 		assert.dom(`.${FORM_CONTROL}[type=checkbox]`).isChecked("checkbox is checked when attribute value is true");
 	});
+
 	test("it renders date time when date type", async function(assert) {
 		const modelWithDateAttribute = {
 			lastModifiedDate: "2020-11-08"
@@ -125,5 +126,17 @@ module("Integration | Component | form-field", function(hooks) {
 		await render(hbs`<FormField @model={{this.model}} @field={{this.field}}/>`);
 		assert.dom(`.${FORM_CONTROL}[type="date"]`).exists({count: 1}, "has a date input when the attribute name contains date");
 		assert.dom(`.${FORM_CONTROL}[type="date"]`).hasValue(modelWithDateAttribute.lastModifiedDate);
+	});
+
+	test("it renders textarea when textarea type", async function(assert) {
+		const modelWithTextareaAttributeName = {
+			isDisabled: false
+		};
+		this.setProperties({
+			model: modelWithTextareaAttributeName,
+			field: "description"
+		});
+		await render(hbs`<FormField @model={{this.model}} @field={{this.field}}/>`);
+		assert.dom(`textarea.${FORM_CONTROL}`).exists({count: 1}, "has a textarea when the attribute name contains description");
 	});
 });

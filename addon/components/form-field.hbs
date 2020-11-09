@@ -1,8 +1,12 @@
 <div class="{{this.className}} {{if this.hasFocus this.focusedClassName}}" ...attributes>
-	{{#if this.isCheckbox}}
-		<Input @type={{this.type}} @checked={{get @model @field}} class={{this.formControlClassName}} id={{this.elementId}} required={{true}}/>}
+	{{#if this.isTextarea}}
+		<Textarea @value={{get @model @field}} class={{this.formControlClassName}} id={{this.elementId}} required={{true}} @focus-in={{fn (mut this.hasFocus) true}} @focus-out={{fn (mut this.hasFocus) false}}/>
 	{{else}}
-		<Input @type={{this.type}} @value={{get @model @field}} class={{this.formControlClassName}} id={{this.elementId}} required={{true}} @focus-in={{fn (mut this.hasFocus) true}} @focus-out={{fn (mut this.hasFocus) false}}/>
+		{{#if this.isCheckbox}}
+			<Input @type={{this.type}} @checked={{get @model @field}} class={{this.formControlClassName}} id={{this.elementId}} required={{true}}/>}
+		{{else}}
+			<Input @type={{this.type}} @value={{get @model @field}} class={{this.formControlClassName}} id={{this.elementId}} required={{true}} @focus-in={{fn (mut this.hasFocus) true}} @focus-out={{fn (mut this.hasFocus) false}}/>
+		{{/if}}
 	{{/if}}
 
 	<label for={{this.elementId}}>{{@field}}</label>

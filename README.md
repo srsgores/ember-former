@@ -52,7 +52,7 @@ This addon has nearly the same features as [`ember-form-builder`](https://github
 | `@type="time"`           | ✔      |  ❌                |
 | `@type="tel"`            | ✔      |  ❌                |
 | `<select>`               | ❌      |  ✔                |
-| `<textarea>`             | ❌      |  ✔                |
+| `<textarea>`             | ✔      |  ✔                |
 
 ## Types Guessed
 
@@ -69,6 +69,7 @@ Type | Guessed when |
 `month` | attribute name contains `month`
 `color` | attribute name contains `colour` or `color` 
 `password` | attribute name contains `password`
+`textarea` | attribute name contains `description`, `content`, `summary`
 `string` | _default_: underlying model's attribute is a `DS.attr("string")`
 
 ### Overriding the `@type`

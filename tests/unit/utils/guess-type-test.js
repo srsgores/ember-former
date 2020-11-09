@@ -88,6 +88,12 @@ module("Unit | Utility | guess-type", function() {
 		});
 	});
 
+	test("it detects textarea inputs by attribute name", function(assert) {
+		assert.equal(guessType({}, {attributeName: "description"}), "textarea");
+		assert.equal(guessType({}, {attributeName: "summary"}), "textarea");
+		assert.equal(guessType({}, {attributeName: "content"}), "textarea");
+	});
+
 	test("it returns \"string\" by default", function(assert) {
 		assert.equal(guessType({}, {attributeName: "role"}), "string");
 	});

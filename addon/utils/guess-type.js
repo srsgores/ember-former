@@ -36,6 +36,9 @@ export default function(model, {attributeName, collection}) {
 	else if (attributeName.match(/(color|colour)/i)) {
 		guessedType = "color";
 	}
+	else if (attributeName.match(/(description|summary|content)/i)) {
+		guessedType = "textarea";
+	}
 	else if (collection) {
 		guessedType = "collection";
 	}
