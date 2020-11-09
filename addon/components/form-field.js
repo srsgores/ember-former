@@ -8,7 +8,8 @@ import guessType from "ember-former/utils/guess-type";
 export const CLASS_NAMES = {
 	FOCUSED_STATE: "focused",
 	FORM_CONTROL: "form-control",
-	FORM_FIELD: "form-field"
+	FORM_FIELD: "form-field",
+	LABEL: "form-field-label"
 };
 
 export const ERROR_MESSAGES = {
@@ -21,6 +22,7 @@ export default class FormFieldComponent extends Component {
 	className = CLASS_NAMES.FORM_FIELD;
 	focusedClassName = CLASS_NAMES.FOCUSED_STATE;
 	formControlClassName = CLASS_NAMES.FORM_CONTROL;
+	labelClassName = CLASS_NAMES.LABEL;
 
 	@tracked hasFocus = false;
 

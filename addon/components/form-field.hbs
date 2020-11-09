@@ -9,6 +9,12 @@
 		{{/if}}
 	{{/if}}
 
-	<label for={{this.elementId}}>{{@field}}</label>
+	<label for={{this.elementId}} class={{this.labelClassName}}>
+		{{#if @labelText}}
+			{{@labelText}}
+		{{else}}
+			{{@field}}
+		{{/if}}
+	</label>
 	{{yield}}
 </div>

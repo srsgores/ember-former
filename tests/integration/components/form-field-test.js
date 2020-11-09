@@ -4,7 +4,7 @@ import {find, focus, render, settled, setupOnerror} from "@ember/test-helpers";
 import {hbs} from "ember-cli-htmlbars";
 import {CLASS_NAMES, ERROR_MESSAGES} from "../../../components/form-field";
 
-const {FOCUSED_STATE, FORM_FIELD, FORM_CONTROL} = CLASS_NAMES;
+const {FOCUSED_STATE, FORM_FIELD, FORM_CONTROL, LABEL} = CLASS_NAMES;
 const {NO_MODEL_SUPPLIED_MESSAGE, NO_FIELD_NAME_SUPPLIED_MESSAGE} = ERROR_MESSAGES;
 
 module("Integration | Component | form-field", function(hooks) {
@@ -188,4 +188,11 @@ module("Integration | Component | form-field", function(hooks) {
 		await render(hbs`<FormField @model={{this.model}} @field="name" @required={{false}}/>`);
 		assert.dom(`.${FORM_CONTROL}`).doesNotHaveAttribute("required", "does not have the required attribute when @required set to false");
 	});
+
+	test("it allows specifying label text", async function(assert) {
+		const labelText = "la la la label";
+		this.set("labelText", labelText);
+		await render(hbs`<FormField @model={{this.model}} @field="name" @labelText={{this.labelText}}/>`);
+		assert.dom(`.${LABEL}`).hasText(labelText, "has the specified label text instead");
+	})
 });

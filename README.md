@@ -99,6 +99,13 @@ By default, all form controls will have `required`.  To disable this use `@requi
 <FormField @field="email" @model={{this.model}} @required={{false}}/>
 ```
 
+### Overriding the label text
+Use the `@labelText` argument:
+
+```hbs
+<FormField @model={{this.model}} @field="alertMessage" @labelText="Custom label text"/>
+```
+
 Compatibility
 ------------------------------------------------------------------------------
 
