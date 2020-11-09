@@ -16,7 +16,25 @@ export default function(model, {attributeName, collection}) {
 		guessedType = "number";
 	}
 	else if (attributeName.match(/^(is|has|did)/)) {
-		guessedType =  "boolean";
+		guessedType =  "checkbox";
+	}
+	else if (attributeName.match(/datetimelocal/i)) {
+		guessedType = "datetime-local";
+	}
+	else if (attributeName.match(/datetime/i)) {
+		guessedType = "datetime";
+	}
+	else if (attributeName.match(/time/i)) {
+		guessedType = "time";
+	}
+	else if (attributeName.match(/date/i)) {
+		guessedType = "date";
+	}
+	else if (attributeName.match(/month/i)) {
+		guessedType = "month";
+	}
+	else if (attributeName.match(/(color|colour)/i)) {
+		guessedType = "color";
 	}
 	else if (collection) {
 		guessedType = "collection";

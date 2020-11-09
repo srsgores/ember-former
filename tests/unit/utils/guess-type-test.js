@@ -17,6 +17,44 @@ module("Unit | Utility | guess-type", function() {
 		assert.equal(guessType({}, {attributeName: "participantCount"}), "number");
 	});
 
+	test("it detects date by attribute name", function(assert) {
+		assert.equal(guessType({}, {attributeName: "dateModified"}), "date");
+		assert.equal(guessType({}, {attributeName: "lastModifiedDate"}), "date");
+	});
+
+	test("it detects datetime-local by attribute name", function(assert) {
+		assert.equal(guessType({}, {attributeName: "dateTimeLocalModified"}), "datetime-local");
+		assert.equal(guessType({}, {attributeName: "lastModifiedDateTimeLocal"}), "datetime-local");
+		assert.equal(guessType({}, {attributeName: "dateTimeLocal"}), "datetime-local");
+	});
+
+	test("it detects datetime by attribute name", function(assert) {
+		assert.equal(guessType({}, {attributeName: "dateTimeModified"}), "datetime");
+		assert.equal(guessType({}, {attributeName: "lastModifiedDateTime"}), "datetime");
+		assert.equal(guessType({}, {attributeName: "dateTime"}), "datetime");
+	});
+
+	test("it detects time by attribute name", function(assert) {
+		assert.equal(guessType({}, {attributeName: "lastUpdatedTime"}), "time");
+		assert.equal(guessType({}, {attributeName: "timeOfPurchase"}), "time");
+		assert.equal(guessType({}, {attributeName: "createdTimeUTC"}), "time");
+	});
+
+	test("it detects month by attribute name", function(assert) {
+		assert.equal(guessType({}, {attributeName: "month"}), "month");
+		assert.equal(guessType({}, {attributeName: "selectedMonth"}), "month");
+		assert.equal(guessType({}, {attributeName: "selectedMonthWithoutYear"}), "month");
+	});
+
+	test("it detects color by attribute name", function(assert) {
+		assert.equal(guessType({}, {attributeName: "preferredColour"}), "color");
+		assert.equal(guessType({}, {attributeName: "preferredColor"}), "color");
+		assert.equal(guessType({}, {attributeName: "colourWhenSelected"}), "color");
+		assert.equal(guessType({}, {attributeName: "colorWhenSelected"}), "color");
+		assert.equal(guessType({}, {attributeName: "color"}), "color");
+		assert.equal(guessType({}, {attributeName: "colour"}), "color");
+	});
+
 	test("it detects password by attribute name", function(assert) {
 		assert.equal(guessType({}, {attributeName: "password"}), "password");
 		assert.equal(guessType({}, {attributeName: "passwordConfirmation"}), "password");
