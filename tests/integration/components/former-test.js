@@ -1,6 +1,6 @@
 import {module, test} from "qunit";
 import {setupRenderingTest} from "ember-qunit";
-import {click, render, setupOnerror} from "@ember/test-helpers";
+import {click, fillIn, render, setupOnerror} from "@ember/test-helpers";
 import {hbs} from "ember-cli-htmlbars";
 import {CLASS_NAMES as FORM_FIELD_CLASSNAMES} from "../../../components/form-field";
 import {CLASS_NAMES as FORM_CLASS_NAMES, ERROR_MESSAGES} from "../../../components/former";
@@ -73,5 +73,30 @@ module("Integration | Component | former", function(hooks) {
 		await render(hbs`<Former @model={{this.model}} novalidate="novalidate" class={{this.customClass}}/>`);
 		assert.dom(`.${FORM_CLASS_NAMES.FORM}`).hasAttribute("novalidate", "novalidate", "has the novalidate attribute");
 		assert.dom(`.${FORM_CLASS_NAMES.FORM}`).hasClass(CUSTOM_CLASS, `has the custom class: ${CUSTOM_CLASS}`);
+	});
+
+	test("it validates form when required inputs found", async function(assert) {
+		assert.expect(4);
+		const model = {
+			...sampleModel,
+			email: ""
+		};
+		this.setProperties({
+			model,
+			validateAndRegisterUser: function() {
+				assert.ok(true);
+			}
+		});
+		await render(hbs`
+		<Former @model={{this.model}} @onSubmit={{this.validateAndRegisterUser}}>
+			<FormField @field="email" @model={{this.model}}/>
+			<button type="submit">Sign up</button>
+		</Former>`);
+		assert.dom(`.${FORM_CLASS_NAMES.FORM} input[type="email"]`).exists({count: 1}, "has an email input");
+		assert.dom(`.${FORM_CLASS_NAMES.FORM} input[type="email"]`).hasNoValue("email is empty");
+		const TEST_EMAIL_ADDRESS = "test@mail.com";
+		await fillIn(`.${FORM_CLASS_NAMES.FORM} input[type="email"]`, TEST_EMAIL_ADDRESS);
+		assert.dom(`.${FORM_CLASS_NAMES.FORM} input[type="email"]`).hasValue(TEST_EMAIL_ADDRESS, "has the modified e-mail address");
+		await click(`button[type="submit"]`);
 	});
 });
