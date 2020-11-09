@@ -72,6 +72,7 @@ Type | Guessed when |
 `password` | attribute name contains `password`
 `textarea` | attribute name contains `description`, `content`, `summary`
 `url` | attribute name contains `url` (case-insensitive)
+`week`| attribute name contains `week` (case-insensitive)
 `string` | _default_: underlying model's attribute is a `DS.attr("string")`
 
 ### Overriding the `@type`
