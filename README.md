@@ -76,11 +76,21 @@ Type | Guessed when |
 
 ### Overriding the `@type`
 
-Only available for `<Input/>` (we can not currently generate `<textarea/>` or `<select>`):
+Use the `@type` argument:
+
 
 ```hbs
-<FormField @field="email" @type="text"/>
+<FormField @model={{this.model}} @field="email" @type="text"/>
 ```
+
+```hbs
+<FormField @model={{this.model}} @field="address" @type="url"/>
+```
+
+```hbs
+<FormField @model={{this.model}} @field="alertMessage" @type="textarea"/>
+```
+(we can not currently generate `<select>`)
 
 ### Disabling the default `required` attribute
 By default, all form controls will have `required`.  To disable this use `@required={{false}}:
