@@ -30,15 +30,6 @@ module("Integration | Component | former", function(hooks) {
 		assert.dom(this.element).includesText(YIELDED_TEXT, `renders the passed-in text "${YIELDED_TEXT}"`);
 	});
 
-	test("it focuses the first form-field when @autofocus set to true", async function(assert) {
-		await render(hbs`
-			<Former @autofocus={{true}} @model={{this.model}} as |form|>
-				<form.field @for="name"/>
-			</Former>
-		`);
-		assert.dom(`.${FORM_CONTROL}:first-child`).isFocused("first form field is focused");
-	});
-
 	test("it triggers @onSubmit callback when @onSubmit argument provided", async function(assert) {
 		assert.expect(1);
 		this.set("onSubmit", function(submitEvent) {

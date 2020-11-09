@@ -32,7 +32,6 @@ Will generate the following HTML:
 ## Features
 * `class` toggle `.focused` class when the field gets focus.  Useful for material-style label placement
 * intelligent "auto-guess" for `<input/>` `type`
-* auto `autofocus` on the first form field in the `<Former>` component with the `@autofocus={{true}}` argument
 
 ### Compared to [`ember-form-builder`](https://github.com/nibynic/ember-form-builder)
 
