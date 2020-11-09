@@ -140,6 +140,18 @@ module("Integration | Component | form-field", function(hooks) {
 		assert.dom(`textarea.${FORM_CONTROL}`).exists({count: 1}, "has a textarea when the attribute name contains description");
 	});
 
+	test("it renders URL input when url type", async function(assert) {
+		const modelWithURLInAttributeName = {
+			photoURL: "https://world.wide.net"
+		};
+		this.setProperties({
+			model: modelWithURLInAttributeName,
+			field: "photoURL"
+		});
+		await render(hbs`<FormField @model={{this.model}} @field={{this.field}}/>`);
+		assert.dom(`.${FORM_CONTROL}[type="url"]`).exists({count: 1}, "has a url input when the attribute name contains url");
+	});
+
 	test("it passes in min, max, and step attributes (number type)", async function(assert) {
 		const modelWithNumberAttribute = {
 			lotNumber: "1"

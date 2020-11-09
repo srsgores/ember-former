@@ -72,6 +72,12 @@ module("Unit | Utility | guess-type", function() {
 		assert.equal(guessType({}, {attributeName: "didWashHimself"}), "checkbox");
 	});
 
+	test("it detects URL by attribute name", function(assert) {
+		assert.equal(guessType({}, {attributeName: "photoURL"}), "url");
+		assert.equal(guessType({}, {attributeName: "uploadURLForPublication"}), "url");
+		assert.equal(guessType({}, {attributeName: "urlForProfile"}), "url");
+	});
+
 	test("it detects collection when a collection param is available", function(assert) {
 		assert.equal(guessType({}, {attributeName: "role", collection: A()}), "collection");
 	});

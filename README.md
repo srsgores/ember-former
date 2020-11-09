@@ -43,6 +43,7 @@ This addon has nearly the same features as [`ember-form-builder`](https://github
 | `@type="datetime"`       | ✔      |  ❌                 |
 | `@type="datetime-local"` | ✔      |  ❌                 |
 | `@type="checkbox"`       | ✔      |  ✔                 |
+| `@type="url"`            | ✔      |  ✔                 |
 | `@type="email"`          | ✔      |  ✔                 |
 | `@type="color"`          | ✔      |  ❌                 |
 | `@type="number"`         | ✔      |  ❌                 |
@@ -70,6 +71,7 @@ Type | Guessed when |
 `color` | attribute name contains `colour` or `color` 
 `password` | attribute name contains `password`
 `textarea` | attribute name contains `description`, `content`, `summary`
+`url` | attribute name contains `url` (case-insensitive)
 `string` | _default_: underlying model's attribute is a `DS.attr("string")`
 
 ### Overriding the `@type`
