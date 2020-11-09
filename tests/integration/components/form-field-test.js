@@ -139,4 +139,24 @@ module("Integration | Component | form-field", function(hooks) {
 		await render(hbs`<FormField @model={{this.model}} @field={{this.field}}/>`);
 		assert.dom(`textarea.${FORM_CONTROL}`).exists({count: 1}, "has a textarea when the attribute name contains description");
 	});
+
+	test("it passes in min, max, and step attributes (number type)", async function(assert) {
+		const modelWithNumberAttribute = {
+			lotNumber: "1"
+		};
+		const MIN = 1;
+		const MAX = 10;
+		const step = 1;
+		this.setProperties({
+			model: modelWithNumberAttribute,
+			field: "lotNumber",
+			MIN,
+			MAX,
+			step
+		});
+		await render(hbs`<FormField @model={{this.model}} @field={{this.field}} @min={{this.MIN}} @max={{this.MAX}} @step={{this.step}}/>`);
+		assert.dom(`.${FORM_CONTROL}[type="number"]`).hasAttribute("min", `${MIN}`);
+		assert.dom(`.${FORM_CONTROL}[type="number"]`).hasAttribute("max", `${MAX}`);
+		assert.dom(`.${FORM_CONTROL}[type="number"]`).hasAttribute("step", `${step}`);
+	})
 });
