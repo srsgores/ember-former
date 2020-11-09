@@ -1,11 +1,11 @@
 <div class="{{this.className}} {{if this.hasFocus this.focusedClassName}}" ...attributes>
 	{{#if this.isTextarea}}
-		<Textarea @value={{get @model @field}} class={{this.formControlClassName}} id={{this.elementId}} required={{true}} @focus-in={{fn (mut this.hasFocus) true}} @focus-out={{fn (mut this.hasFocus) false}}/>
+		<Textarea @value={{get @model @field}} class={{this.formControlClassName}} id={{this.elementId}} required={{true}} @focus-in={{fn (mut this.hasFocus) true}} @focus-out={{fn (mut this.hasFocus) false}} @required={{this.isRequired}}/>
 	{{else}}
 		{{#if this.isCheckbox}}
-			<Input @type={{this.type}} @checked={{get @model @field}} class={{this.formControlClassName}} id={{this.elementId}} required={{true}}/>}
+			<Input @type={{this.type}} @checked={{get @model @field}} class={{this.formControlClassName}} id={{this.elementId}} required={{this.isRequired}}/>}
 		{{else}}
-			<Input @type={{this.type}} @value={{get @model @field}} class={{this.formControlClassName}} id={{this.elementId}} required={{true}} @min={{@min}} @max={{@max}} @step={{@step}} @focus-in={{fn (mut this.hasFocus) true}} @focus-out={{fn (mut this.hasFocus) false}}/>
+			<Input @type={{this.type}} @value={{get @model @field}} class={{this.formControlClassName}} id={{this.elementId}} required={{this.isRequired}} @min={{@min}} @max={{@max}} @step={{@step}} @focus-in={{fn (mut this.hasFocus) true}} @focus-out={{fn (mut this.hasFocus) false}}/>
 		{{/if}}
 	{{/if}}
 

@@ -158,5 +158,10 @@ module("Integration | Component | form-field", function(hooks) {
 		assert.dom(`.${FORM_CONTROL}[type="number"]`).hasAttribute("min", `${MIN}`);
 		assert.dom(`.${FORM_CONTROL}[type="number"]`).hasAttribute("max", `${MAX}`);
 		assert.dom(`.${FORM_CONTROL}[type="number"]`).hasAttribute("step", `${step}`);
-	})
+	});
+
+	test("it disables required attribute when @required={{false}} passed in", async function(assert) {
+		await render(hbs`<FormField @model={{this.model}} @field="name" @required={{false}}/>`);
+		assert.dom(`.${FORM_CONTROL}`).doesNotHaveAttribute("required", "does not have the required attribute when @required set to false");
+	});
 });

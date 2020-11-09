@@ -76,9 +76,15 @@ Type | Guessed when |
 
 Only available for `<Input/>` (we can not currently generate `<textarea/>` or `<select>`):
 
-
 ```hbs
 <FormField @field="email" @type="text"/>
+```
+
+### Disabling the default `required` attribute
+By default, all form controls will have `required`.  To disable this use `@required={{false}}:
+
+```hbs
+<FormField @field="email" @model={{this.model}} @required={{false}}/>
 ```
 
 Compatibility
