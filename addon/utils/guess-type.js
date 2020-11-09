@@ -40,7 +40,18 @@ export default function(model, {attributeName, collection}) {
 		guessedType = "collection";
 	}
 	else {
-		guessedType = model.constructor?.metaForProperty && typeof model.constructor.metaForProperty === "function" ? model.constructor.metaForProperty(attributeName)?.type : guessedType;
+		let emberDataType = model.constructor?.metaForProperty && typeof model.constructor.metaForProperty === "function" ? model.constructor.metaForProperty(attributeName)?.type : null;
+		if (emberDataType) {
+			switch (emberDataType) {
+				case "boolean":
+					guessedType = "checkbox";
+					break;
+				case "number":
+				case "date":
+					guessedType = emberDataType;
+					break;
+			}
+		}
 	}
 
 	return guessedType;

@@ -67,9 +67,9 @@ module("Unit | Utility | guess-type", function() {
 	});
 
 	test("it detects boolean by attribute name", function(assert) {
-		assert.equal(guessType({}, {attributeName: "isNice"}), "boolean");
-		assert.equal(guessType({}, {attributeName: "hasMustache"}), "boolean");
-		assert.equal(guessType({}, {attributeName: "didWashHimself"}), "boolean");
+		assert.equal(guessType({}, {attributeName: "isNice"}), "checkbox");
+		assert.equal(guessType({}, {attributeName: "hasMustache"}), "checkbox");
+		assert.equal(guessType({}, {attributeName: "didWashHimself"}), "checkbox");
 	});
 
 	test("it detects collection when a collection param is available", function(assert) {
@@ -84,7 +84,7 @@ module("Unit | Utility | guess-type", function() {
 				}).meta({type: type})
 			}).create();
 
-			assert.equal(guessType(object, {attributeName: "someProperty"}), type);
+			assert.equal(guessType(object, {attributeName: "someProperty"}), type === "boolean" ? "checkbox" : type);
 		});
 	});
 
